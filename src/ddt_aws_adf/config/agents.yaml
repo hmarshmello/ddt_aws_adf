@@ -42,4 +42,4 @@ notebook_engineer:
   max_execution_time: 120
   verbose: False
   Reasoning: True
-  max_reasoning_attempts: 3
+  max_reasoning_attempts: 3   
