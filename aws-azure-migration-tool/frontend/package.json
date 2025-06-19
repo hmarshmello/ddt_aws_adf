@@ -1,0 +1,27 @@
+{
+  "name": "aws-azure-migration-tool-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "core-js": "^3.30.1",
+    "marked": "^5.0.2",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@babel/eslint-parser": "^7.24.0",
+    "@vue/compiler-sfc": "^3.2.47",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0"
+  }
+}

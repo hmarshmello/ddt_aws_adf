@@ -1,0 +1,23 @@
+[project]
+name = "ddt_aws_adf"
+version = "0.1.0"
+description = "ddt_aws_adf using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]>=0.130.0,<1.0.0"
+]
+
+[project.scripts]
+ddt_aws_adf = "ddt_aws_adf.main:run"
+run_crew = "ddt_aws_adf.main:run"
+train = "ddt_aws_adf.main:train"
+replay = "ddt_aws_adf.main:replay"
+test = "ddt_aws_adf.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

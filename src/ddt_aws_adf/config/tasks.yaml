@@ -1,0 +1,97 @@
+discovery_task:
+  description: >
+    Analyze the provided context and extract the main topics that need to be
+    covered in a report. Each topic should be concise and relevant to the overall
+    subject matter.
+    AWS Glue job: {aws_glue_job_definition}
+    AWS Python Script: {aws_python_script}
+  expected_output: >
+    Focus on identifying and extracting the following key components:
+    - Job type (e.g., Spark, Python Shell)
+    - Script location and language
+    - Data sources and targets (connections, formats, locations)
+    - Job parameters and arguments
+    - Connections used (JDBC, S3, etc.)
+    - Security configurations (IAM roles, security groups)
+    - Any other relevant configurations or properties
+    Provide a detailed, itemized breakdown of the extracted information.
+  agent: discovery_engineer
+  name: Analyze AWS Glue Job Definition
+
+mapping_task:
+  description: >
+    Create a comprehensive mapping of the AWS Glue job definition to the
+    required format in Azure Services for migration. This includes translating
+    AWS-specific configurations to their Azure equivalents.
+    DONT use '```markdown' these at the start and '```' at the end.
+  expected_output: >
+      """(## Guidance for Completing the Template
+
+      When filling out this template for a specific AWS Glue to Azure Data Factory migration, follow these guidelines:
+      ### 1. Executive Summary
+      - Keep it concise (1-2 paragraphs)
+      - Focus on the business purpose of the job and the high-level migration approach
+      - Mention key technologies involved in both source and target environments
+
+      ### 2. Assumptions and Decisions
+      - Be specific about technical decisions made during the migration planning
+      - Explain the rationale behind each decision
+      - Address potential challenges and how they will be handled
+
+      ### 3. Azure Data Factory Pipeline Definition
+      - Use proper ADF naming conventions (e.g., pl_[purpose]_[action])
+      - Include all parameters that will be needed for the pipeline
+      - Detail each activity with its configuration
+      - Map timeout, retry, and concurrency settings from AWS Glue
+
+      ### 4. Azure Linked Services
+      - Include all necessary linked services for data sources, compute, and other resources
+      - Specify authentication methods (preferably using Managed Identities)
+      - Include placeholder linked services for any connections defined in AWS Glue
+
+      ### 5. Azure Datasets
+      - Define datasets for source and target data if needed
+      - Explain parameterization of paths
+      - Include schema information if relevant
+
+      ### 6. Azure Databricks Notebook
+      - Highlight specific changes needed to convert AWS Glue script to Databricks
+      - Include error handling and logging
+      - Show parameter handling using dbutils.widgets
+      - Demonstrate proper connection to Azure storage
+
+      ### 7. Mapping Table
+      - Create a comprehensive mapping of all AWS Glue configurations to Azure equivalents
+      - Group related configurations together
+      - Explain any configurations that don't have direct equivalents
+
+      ### 8. Post-Migration Considerations
+      - Include testing strategies specific to the migration
+      - Address performance tuning based on the specific workload
+      - Consider cost optimization opportunities
+      - Detail monitoring and alerting requirements
+
+      This template provides a structured approach to documenting AWS Glue to Azure Data Factory migrations, ensuring all key aspects are addressed and properly documented."""
+  agent: mapping_analyst
+  name: Create Mapping Report
+  context: {discovery_task}
+  markdown: True
+  output_file: mapping_report.md
+
+notebook_task:
+  description: >
+    Develop a Databricks notebook that replicates the functionality of the
+    AWS Glue job, ensuring compatibility with Azure Data Factory. The notebook
+    should be structured to handle parameters and configurations as defined in
+    the mapping report.
+    Avoid using '```' these.
+  expected_output: >
+    A Databricks notebook that:
+    - Uses dbutils.widgets for parameter handling
+    - Connects to Azure Blob Storage or Data Lake as needed
+    - Implements error handling and logging
+    - Transforms data as per the AWS Glue job logic
+  agent: notebook_engineer
+  name: Develop Databricks Notebook
+  context: {mapping_task}
+  output_file: databricks_notebook.py

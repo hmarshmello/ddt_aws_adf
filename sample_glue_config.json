@@ -1,0 +1,40 @@
+{
+  "job_config": {
+    "Name": "sample-glue-etl-job",
+    "Role": "arn:aws:iam::123456789012:role/AWSGlueServiceRole",
+    "ExecutionProperty": {
+      "MaxConcurrentRuns": 1
+    },
+    "Command": {
+      "Name": "glueetl",
+      "ScriptLocation": "s3://my-glue-scripts/sample_glue_script.py",
+      "PythonVersion": "3"
+    },
+    "DefaultArguments": {
+      "--job-language": "python",
+      "--job-bookmark-option": "job-bookmark-enable",
+      "--enable-metrics": "true",
+      "--enable-continuous-cloudwatch-log": "true",
+      "--enable-spark-ui": "true",
+      "--spark-event-logs-path": "s3://aws-glue-assets/sparkHistoryLogs/",
+      "--TempDir": "s3://aws-glue-assets/temporary/",
+      "--DATABASE_NAME": "sample_database",
+      "--TABLE_NAME": "sample_table",
+      "--OUTPUT_PATH": "s3://my-output-bucket/processed-data/"
+    },
+    "MaxRetries": 0,
+    "AllocatedCapacity": 10,
+    "Timeout": 2880,
+    "MaxCapacity": 10,
+    "GlueVersion": "2.0",
+    "NumberOfWorkers": 10,
+    "WorkerType": "G.1X",
+    "Connections": {
+      "Connections": ["my-jdbc-connection"]
+    },
+    "Tags": {
+      "Environment": "Development",
+      "Project": "DataMigration"
+    }
+  }
+}
